@@ -31,7 +31,6 @@ var generatedMessage string
 func generateCommit(cmd *cobra.Command, args []string) {
 	url := "https://api-inference.huggingface.co/models/Qwen/Qwen2.5-Coder-32B-Instruct/v1/chat/completions"
 	apiKey, err := LoadAPIKey()
-
 	if apiKey == "" {
 		fmt.Printf(
 			"apiKey is null did you Run gocommit set-api --key hf_yourapikeyhere",
@@ -52,7 +51,7 @@ func generateCommit(cmd *cobra.Command, args []string) {
 			},
 		},
 		"max_tokens": 500,
-		"stream":     true,
+		"stream":     false,
 	}
 
 	jsonData, err := json.Marshal(payload)
@@ -85,9 +84,9 @@ func generateCommit(cmd *cobra.Command, args []string) {
 	}
 
 	var apiResp APIResponse
-	err = json.Unmarshal(body, &apiResp)
+	err = json.Unmarshal([]byte(body), &apiResp)
 	if err != nil {
-		fmt.Println("Error parsing JSON response:", err)
+		fmt.Printf("error parsing json response:", err)
 		return
 	}
 
@@ -99,20 +98,28 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		fmt.Println("No message content found in the response.")
 	}
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Do you want to regenerate the commit message? (y/N): ")
-	userInput, _ := reader.ReadString('\n')
-	userInput = strings.TrimSpace(strings.ToLower(userInput))
-	if userInput == "y" || userInput == "yes" {
-		fmt.Println("Regenerating commit message...")
-		generateCommit(cmd, args)
-	} else {
-		fmt.Println("Using the generated commit message.")
-		gitCommitCmd := exec.Command("git", "commit", "-m", generatedMessage)
-		err := gitCommitCmd.Run()
-		if err != nil {
-			fmt.Println("Error committing changes:", err)
+	for {
+		fmt.Print("Do you want to regenerate the commit message? (y/N): ")
+		userInput, _ := reader.ReadString('\n')
+		userInput = strings.TrimSpace(strings.ToLower(userInput))
+
+		if userInput == "y" || userInput == "yes" {
+			fmt.Println("Regenerating commit message...")
+			generateCommit(cmd, args)
+
 		} else {
-			fmt.Println("Commit successful!")
+			fmt.Println("Using the generated commit message.")
+
+			gitCommitCmd := exec.Command("git", "commit", "-m", string(generatedMessage))
+			output, err := gitCommitCmd.CombinedOutput() // This captures both stdout and stderr
+
+			if err != nil {
+				fmt.Println("Error committing changes:", err)
+				fmt.Println(string(output)) // Print any error message from git
+			} else {
+				fmt.Println("Commit successful!")
+			}
+			break
 		}
 	}
 }
