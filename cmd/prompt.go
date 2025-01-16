@@ -31,7 +31,7 @@ Generate a concise git commit message written in present tense for the following
 - Your response will be passed directly into git commit.
 `, maxLength)
 
-	gitcommand := exec.Command("git", "diff")
+	gitcommand := exec.Command("git", "diff", " --cached")
 	var out bytes.Buffer
 	gitcommand.Stdout = &out
 
