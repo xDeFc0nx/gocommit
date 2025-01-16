@@ -31,9 +31,9 @@ var generatedMessage string
 func generateCommit(cmd *cobra.Command, args []string) {
 	url := "https://api-inference.huggingface.co/models/Qwen/Qwen2.5-Coder-32B-Instruct/v1/chat/completions"
 	apiKey, err := LoadAPIKey()
-	if apiKey == "" {
+	if err != nil {
 		fmt.Printf(
-			"apiKey is null did you Run gocommit set-api --key hf_yourapikeyhere",
+			"apiKey is null did you Run gocommit set-api --key hf_yourapikeyhere\n",
 		)
 	}
 
@@ -42,6 +42,7 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		fmt.Println(err)
 		return
 	}
+
 	payload := map[string]interface{}{
 		"model": "Qwen/Qwen2.5-Coder-32B-Instruct",
 		"messages": []map[string]string{
@@ -90,13 +91,18 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		return
 	}
 
+	fmt.Println("message:", generatedMessage)
+
+	generatedMessage = strings.TrimSpace(generatedMessage)
+
 	if len(apiResp.Choices) > 0 {
-		generatedMessage := apiResp.Choices[0].Message.Content
+		generatedMessage = apiResp.Choices[0].Message.Content
 		fmt.Println("Generated Commit Message:")
 		fmt.Println(generatedMessage)
 	} else {
 		fmt.Println("No message content found in the response.")
 	}
+
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Print("Do you want to regenerate the commit message? (y/N): ")
@@ -106,16 +112,19 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		if userInput == "y" || userInput == "yes" {
 			fmt.Println("Regenerating commit message...")
 			generateCommit(cmd, args)
-
 		} else {
+			if generatedMessage == "" {
+				fmt.Println("Error: Generated commit message is empty.")
+				return
+			}
+
 			fmt.Println("Using the generated commit message.")
+			gitCommitCmd := exec.Command("git", "commit", "-m", generatedMessage)
 
-			gitCommitCmd := exec.Command("git", "commit", "-m", string(generatedMessage))
-			output, err := gitCommitCmd.CombinedOutput() // This captures both stdout and stderr
-
+			output, err := gitCommitCmd.CombinedOutput()
 			if err != nil {
 				fmt.Println("Error committing changes:", err)
-				fmt.Println(string(output)) // Print any error message from git
+				fmt.Println(string(output))
 			} else {
 				fmt.Println("Commit successful!")
 			}
