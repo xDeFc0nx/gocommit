@@ -1,7 +1,7 @@
 
 # GoCommit
 
-GoCommit is a simple "bad" CLI tool i made to use llama3 from hugging face, 
+GoCommit is a simple "bad" CLI tool i made to use llama3 from hugging face to generate git commit messages
 
 ### Why? 
 ![Why Not You Stupid Bastard](https://i.imgflip.com/6h29mw.jpg)
