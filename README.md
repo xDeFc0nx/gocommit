@@ -1,7 +1,7 @@
 
 # GoCommit
 
-GoCommit is a simple "bad" CLI tool i made to use llama3 from hugging face to generate git commit messages
+GoCommit is a simple "bad" CLI tool i made to use Qwen from hugging face to generate git commit messages
 
 ### Why? 
 ![Why Not You Stupid Bastard](https://i.imgflip.com/6h29mw.jpg)
@@ -25,3 +25,10 @@ finally
 ```bash
 gocommit
 ```
+
+### Shoutout
+[Qwen](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct)
+
+### Contribution
+
+![Just do it!](https://i.imgflip.com/9gyc7l.jpg)
