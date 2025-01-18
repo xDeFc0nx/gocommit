@@ -30,7 +30,7 @@ Choose a type from the list below that best describes the git diff:
 Generate a concise git commit message written in present tense for the following code diff with the specifications below:
 - Commit message must be a maximum of %d characters.
 - Exclude unnecessary details like translations.
-- don't wrap it in bash wrap it in "".
+- don't wrap it in bash or anything.
 - Your response will be passed directly into git commit.
 `, maxLength)
 
