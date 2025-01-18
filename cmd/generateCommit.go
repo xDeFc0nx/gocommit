@@ -9,7 +9,9 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"time"
 
+	"github.com/briandowns/spinner"
 	"github.com/spf13/cobra"
 )
 
@@ -53,7 +55,8 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		"max_tokens": 500,
 		"stream":     false,
 	}
-
+	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
+	s.Start()
 	jsonData, err := json.Marshal(payload)
 	if err != nil {
 		fmt.Println("Error encoding JSON:", err)
@@ -86,10 +89,10 @@ func generateCommit(cmd *cobra.Command, args []string) {
 	var apiResp APIResponse
 	err = json.Unmarshal([]byte(body), &apiResp)
 	if err != nil {
-		fmt.Printf("error parsing json response:", err)
+		fmt.Println("error parsing json response:", err)
 		return
 	}
-
+	s.Stop()
 	if len(apiResp.Choices) > 0 {
 		generatedMessage = apiResp.Choices[0].Message.Content
 		fmt.Println("Generated Commit Message:", generatedMessage)
