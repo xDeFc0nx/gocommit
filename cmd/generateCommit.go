@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 
 	"github.com/briandowns/spinner"
@@ -105,7 +106,7 @@ func generateCommit(cmd *cobra.Command, args []string) {
 	for {
 		fmt.Print("Do you want to regenerate the commit message? (y/N): ")
 		userInput, _ := reader.ReadString('\n')
-
+		userInput = strings.TrimSpace(strings.ToLower(userInput))
 		if userInput == "y" || userInput == "yes" {
 			fmt.Println("Regenerating commit message...")
 			generateCommit(cmd, args)
@@ -115,7 +116,6 @@ func generateCommit(cmd *cobra.Command, args []string) {
 				return
 			}
 			gitCommitCmd := exec.Command("git", "commit", "-m", generatedMessage)
-			fmt.Println("command:", gitCommitCmd)
 			output, err := gitCommitCmd.CombinedOutput()
 			if err != nil {
 				fmt.Println("Error committing changes:", err)
