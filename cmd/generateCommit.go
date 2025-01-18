@@ -111,7 +111,6 @@ func generateCommit(cmd *cobra.Command, args []string) {
 				fmt.Println("Error: Generated commit message is empty.")
 				return
 			}
-			fmt.Printf("test")
 			gitCommitCmd := exec.Command("git", "commit", "-m", generatedMessage)
 			fmt.Println("command:", gitCommitCmd)
 			output, err := gitCommitCmd.CombinedOutput()
