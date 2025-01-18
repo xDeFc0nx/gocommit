@@ -121,7 +121,7 @@ func generateCommit(cmd *cobra.Command, args []string) {
 				fmt.Println("Error committing changes:", err)
 				fmt.Println(string(output))
 			} else {
-				fmt.Println("Commit successful!")
+				fmt.Println("Commit successful! run git push")
 			}
 			break
 		}
