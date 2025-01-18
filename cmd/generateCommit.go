@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -91,14 +90,10 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	fmt.Println("message:", generatedMessage)
-
-	generatedMessage = strings.TrimSpace(generatedMessage)
-
 	if len(apiResp.Choices) > 0 {
 		generatedMessage = apiResp.Choices[0].Message.Content
-		fmt.Println("Generated Commit Message:")
-		fmt.Println(generatedMessage)
+		fmt.Println("Generated Commit Message:", generatedMessage)
+
 	} else {
 		fmt.Println("No message content found in the response.")
 	}
@@ -107,7 +102,6 @@ func generateCommit(cmd *cobra.Command, args []string) {
 	for {
 		fmt.Print("Do you want to regenerate the commit message? (y/N): ")
 		userInput, _ := reader.ReadString('\n')
-		userInput = strings.TrimSpace(strings.ToLower(userInput))
 
 		if userInput == "y" || userInput == "yes" {
 			fmt.Println("Regenerating commit message...")
@@ -118,7 +112,7 @@ func generateCommit(cmd *cobra.Command, args []string) {
 				return
 			}
 
-			fmt.Println("Using the generated commit message.")
+			fmt.Println("Using the generated commit message:", generatedMessage)
 			gitCommitCmd := exec.Command("git", "commit", "-m", generatedMessage)
 
 			output, err := gitCommitCmd.CombinedOutput()
