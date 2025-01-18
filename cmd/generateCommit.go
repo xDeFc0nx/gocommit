@@ -112,9 +112,8 @@ func generateCommit(cmd *cobra.Command, args []string) {
 				return
 			}
 
-			fmt.Println("Using the generated commit message:", generatedMessage)
 			gitCommitCmd := exec.Command("git", "commit", "-m", generatedMessage)
-
+			fmt.Println("command:", gitCommitCmd)
 			output, err := gitCommitCmd.CombinedOutput()
 			if err != nil {
 				fmt.Println("Error committing changes:", err)
