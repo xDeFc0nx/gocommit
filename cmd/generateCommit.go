@@ -46,7 +46,7 @@ func generateCommit(cmd *cobra.Command, args []string) {
 	}
 
 	payload := map[string]interface{}{
-		"model": "Qwen/Qwen2.5-Coder-32B-Instruct",
+		"model": "deepseek-ai/DeepSeek-V3",
 		"messages": []map[string]string{
 			{
 				"role":    "user",
