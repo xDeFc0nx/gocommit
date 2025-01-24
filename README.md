@@ -1,7 +1,7 @@
 
 # GoCommit
 
-GoCommit is a simple "bad" CLI tool i made to use Qwen from hugging face to generate git commit messages
+GoCommit is a simple "bad" CLI tool i made to use DeepSeek from hugging face to generate git commit messages
 
 ### Why? 
 ![Why Not You Stupid Bastard](https://i.imgflip.com/6h29mw.jpg)
@@ -27,7 +27,7 @@ gocommit
 ```
 
 ### Shoutout
-[Qwen](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct)
+[DeepSeek](https://huggingface.co/deepseek-ai/DeepSeek-V3)
 
 ### Contribution
 
