@@ -47,17 +47,17 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		apiKey,
 	)
 
-	payload := map[string]interface{}{
-		"contents": []interface{}{
-			map[string]interface{}{
-				"parts": []interface{}{
-					map[string]interface{}{
+	payload := map[string]any{
+		"contents": []any{
+			map[string]any{
+				"parts": []any{
+					map[string]any{
 						"text": fullPrompt,
 					},
 				},
 			},
 		},
-    }	
+	}
 
 	s := spinner.New(spinner.CharSets[9], 100*time.Millisecond)
 	s.Start()
@@ -110,12 +110,11 @@ func generateCommit(cmd *cobra.Command, args []string) {
 
 	fmt.Println("\nGenerated Commit Message >", generatedMessage)
 	gitCommitCmd := exec.Command("git", "commit", "-m", generatedMessage)
-			output, err := gitCommitCmd.CombinedOutput()
-			if err != nil {
-				fmt.Println("Error committing changes:", err)
-				fmt.Println(string(output))
-			} else {
-				fmt.Println("Commit successful! run git push")
-			}
-
+	output, err := gitCommitCmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("Error committing changes:", err)
+		fmt.Println(string(output))
+	} else {
+		fmt.Println("Commit successful! run git push")
+	}
 }

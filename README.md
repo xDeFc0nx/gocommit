@@ -1,7 +1,7 @@
 
 # GoCommit
 
-GoCommit is a simple "bad" CLI tool i made to use DeepSeek from hugging face to generate git commit messages
+GoCommit is a simple "bad" CLI tool i made to use Gemini to generate git commit messages
 
 ### Why? 
 ![Why Not You Stupid Bastard](https://i.imgflip.com/6h29mw.jpg)
@@ -25,10 +25,6 @@ finally
 ```bash
 gocommit
 ```
-
-### Shoutout
-[DeepSeek](https://huggingface.co/deepseek-ai/DeepSeek-V3)
-
 ### Contribution
 
 ![Just do it!](https://i.imgflip.com/9gyc7l.jpg)
