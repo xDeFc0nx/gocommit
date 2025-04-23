@@ -14,7 +14,7 @@ go install github.com/xDeFc0nx/gocommit@latest
 ```
 
 ### Usage
-First set your hugging face api key
+First set your api key
 
 ```bash
 gocommit set-api --key hf_yourapikeyhere"
