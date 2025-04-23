@@ -13,7 +13,7 @@ func LoadAPIKey() (string, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return "", fmt.Errorf(
-			"could not read .gocommit file did you Run gocommit set-api --key hf_yourapikeyhere:  %w",
+			"could not read .gocommit file did you Run gocommit set-api --key yourapikeyhere:  %w",
 			err,
 		)
 	}
@@ -25,6 +25,6 @@ func LoadAPIKey() (string, error) {
 	}
 
 	return "", fmt.Errorf(
-		"API_KEY not found in .gocommit file, Run gocommit set-api --key hf_yourapikeyhere",
+		"API_KEY not found in .gocommit file, Run gocommit set-api --key yourapikeyhere",
 	)
 }

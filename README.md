@@ -19,7 +19,7 @@ First set your api key
 ```bash
 gocommit set-api --key hf_yourapikeyhere"
 ```
-get it from here : [link](https://huggingface.co/settings/tokens)
+get it from here : [link](https://aistudio.google.com/apikey)
 
 finally
 ```bash
