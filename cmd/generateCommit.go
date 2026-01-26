@@ -43,10 +43,9 @@ func generateCommit(cmd *cobra.Command, args []string) {
 	}
 
 	url := fmt.Sprintf(
-		"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=%",
+		"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=%s",
 		apiKey,
 	)
-
 	payload := map[string]any{
 		"contents": []any{
 			map[string]any{
