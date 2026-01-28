@@ -17,7 +17,7 @@ go install github.com/xDeFc0nx/gocommit@latest
 First set your api key
 
 ```bash
-gocommit set-api --key hf_yourapikeyhere"
+gocommit set-api --key yourapikeyhere
 ```
 get it from here : [link](https://aistudio.google.com/apikey)
 
