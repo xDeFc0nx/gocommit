@@ -31,19 +31,17 @@ func generateCommit(cmd *cobra.Command, args []string) {
 	s.Start()
 	defer s.Stop()
 
-	// 1. Point the client to Groq's OpenAI-compatible endpoint
 	config := openai.DefaultConfig(apiKey)
-	config.BaseURL = "https://api.groq.com/openai/v1"
+	config.BaseURL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 	client := openai.NewClientWithConfig(config)
 
-	// 2. Send the chat completion request
 	ctx, cancel := context.WithTimeout(cmd.Context(), 30*time.Second)
 	defer cancel()
 
 	resp, err := client.CreateChatCompletion(
 		ctx,
 		openai.ChatCompletionRequest{
-			Model: "qwen/qwen3.8-27b",
+			Model: "gemini-2.5-flash-lite",
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleUser,
