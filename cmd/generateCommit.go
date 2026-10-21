@@ -21,6 +21,9 @@ func generateCommit(cmd *cobra.Command, args []string) {
 		return
 	}
 
+	apiKey = strings.TrimSpace(apiKey)
+	apiKey = strings.Trim(apiKey, `"'`)
+
 	fullPrompt, err := prompt()
 	if err != nil {
 		fmt.Println("Error getting diff:", err)
